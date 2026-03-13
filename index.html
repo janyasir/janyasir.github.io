@@ -575,93 +575,42 @@
             <summary>
                 <h3>Undergraduate Students</h3>
             </summary>
-            <ul>
-                <li>Student Name 1 - Project Title</li>
-                <li>Student Name 2 - Project Title</li>
-                <li>Student Name 3 - Project Title</li>
-                <li>Student Name 4 - Project Title</li>
-                <li>Student Name 5 - Project Title</li>
-            </ul>
+            <ul id="ug-list"></ul>
         </details>
 
         <details class="experience-item" open>
             <summary>
                 <h3>Postgraduate Students</h3>
             </summary>
-            <ul>
-                <li>Student Name 6 - Thesis Title</li>
-                <li>Student Name 7 - Thesis Title</li>
-                <li>Student Name 8 - Thesis Title</li>
-                <li>Student Name 9 - Thesis Title</li>
-            </ul>
+            <ul id="pg-list"></ul>
         </details>
 
         <details class="experience-item" open>
             <summary>
                 <h3>Internships (2025)</h3>
             </summary>
-            <ul>
-                <li><a href="https://www.linkedin.com/in/jahan-alam-040472280" target="_blank">Jahan Alam</a></li>
-            </ul>
+            <ul id="interns-2025-list"></ul>
         </details>
 
         <details class="experience-item" open>
             <summary>
                 <h3>Internships (2024)</h3>
             </summary>
-            <ul>
-                <li><a href="#">Abdullah Umer Ali</a></li>
-                <li><a href="#">Abdul Moiz</a></li>
-                <li><a href="#">Aayan Ejaz</a></li>
-                <li><a href="#">Ali Dayan</a></li>
-                <li><a href="#">Asma Abid</a></li>
-                <li><a href="#">Farhan Afsar</a></li>
-                <li><a href="#">Fasih ur Rehman</a></li>
-                <li><a href="#">Hasnain Irshad</a></li>
-                <li><a href="#">Moazzam Haider</a></li>
-                <li><a href="#">Muhammad Talha</a></li>
-                <li><a href="#">Muhammad Talal Kayani</a></li>
-                <li><a href="#">Muhammad Zakriya</a></li>
-                <li><a href="#">Summaira Muzaffar</a></li>
-            </ul>
+            <ul id="interns-2024-list"></ul>
         </details>
 
         <details class="experience-item" open>
             <summary>
                 <h3>Internships (2023)</h3>
             </summary>
-            <ul>
-                <li><a href="#">Ali Dayan Pervez</a></li>
-                <li><a href="#">Fasih Ahmed</a></li>
-                <li><a href="#">Hafiz Hammad Satti</a></li>
-                <li><a href="#">Hamza Iftikhar</a></li>
-                <li><a href="#">Mohammad Zain Zia</a></li>
-                <li><a href="#">Muhammad Areeb Khan</a></li>
-                <li><a href="#">Muhammad Luqman</a></li>
-                <li><a href="#">Obaid Sajjad</a></li>
-                <li><a href="#">Raja Abdul Basit</a></li>
-                <li><a href="#">Shaheer Zafar</a></li>
-                <li><a href="#">Umama Aijaz</a></li>
-            </ul>
+            <ul id="interns-2023-list"></ul>
         </details>
 
         <details class="experience-item" open>
             <summary>
                 <h3>Internships (2022)</h3>
             </summary>
-            <ul>
-                <li><a href="#">Abdul Hanan</a></li>
-                <li><a href="#">Arsalan Amin</a></li>
-                <li><a href="#">Hafiz Hammad Sharafat Satti</a></li>
-                <li><a href="#">Ismail Effandi</a></li>
-                <li><a href="#">Lehrasib Ali</a></li>
-                <li><a href="#">Muhammad Abuzar</a></li>
-                <li><a href="#">Muhammad Ahsanullah Mangat</a></li>
-                <li><a href="#">Muhammad Luqman</a></li>
-                <li><a href="#">Muhammad Ramzan</a></li>
-                <li><a href="#">Mubashir Nasir</a></li>
-                <li><a href="#">Raja Musshaf Ali Umar</a></li>
-            </ul>
+            <ul id="interns-2022-list"></ul>
         </details>
     </div>
 
@@ -670,6 +619,35 @@
         <p>&copy; 2026 Dr. Yasir Jan. All rights reserved.</p>
     </div>
 
+    <script>
+        async function loadStudentList(fileUrl, listId) {
+            try {
+                const response = await fetch(fileUrl);
+                if (response.ok) {
+                    const text = await response.text();
+                    const list = document.getElementById(listId);
+                    list.innerHTML = '';
+                    const lines = text.split('\n').filter(line => line.trim() !== '');
+                    lines.forEach(line => {
+                        const li = document.createElement('li');
+                        li.innerHTML = line;
+                        list.appendChild(li);
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading ' + fileUrl, error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadStudentList('students/ug.txt', 'ug-list');
+            loadStudentList('students/pg.txt', 'pg-list');
+            loadStudentList('students/interns_2025.txt', 'interns-2025-list');
+            loadStudentList('students/interns_2024.txt', 'interns-2024-list');
+            loadStudentList('students/interns_2023.txt', 'interns-2023-list');
+            loadStudentList('students/interns_2022.txt', 'interns-2022-list');
+        });
+    </script>
 </body>
 
 </html>
