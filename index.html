@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yasir Jan - AI & Computer Vision Expert</title>
-    
+    <title>Yasir Jan - AI & Innovation Strategy Consultant</title>
+
     <!-- Font Awesome CDN for Icons -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" crossorigin="anonymous"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"
+        crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- html2pdf for client-side PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
         body {
@@ -17,31 +21,31 @@
             padding: 20px;
             background-color: #f4f4f4;
         }
-        
+
         .header {
             text-align: center;
             padding: 20px;
-            background: rgba(0, 0, 0, 0.1)
-            color: white;
+            background: rgba(0, 0, 0, 0.1);
+            color: black;
             margin-bottom: 20px;
             border-radius: 10px;
         }
-        
+
         .header h1 {
             font-size: 32px;
             margin: 5px 0;
         }
-        
+
         .header p {
             font-size: 16px;
             margin: 5px 0;
         }
 
         .contact-info {
-            font-size: 16px;
+            font-size: 15px;
             margin: 10px 0;
         }
-        
+
         .profile-image {
             width: 120px;
             height: 120px;
@@ -49,8 +53,7 @@
             border: 3px solid white;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
         }
-        
-        
+
         .social-links a {
             display: inline-flex;
             align-items: center;
@@ -59,21 +62,18 @@
             font-size: 18px;
             color: black;
             font-weight: bold;
-        }
-        .social-links a {
             transition: color 0.3s ease;
         }
-        
+
         .social-links a:hover {
-            color: #ffcc00; /* Change to any color you like */
+            color: #ffcc00;
         }
-        .section {
-            background: white;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+        .social-links a i {
+            font-size: 22px;
+            margin-right: 8px;
         }
+
         .section {
             background: white;
             padding: 20px;
@@ -82,248 +82,572 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
-        
-        .section:hover {
-           background:  rgba(0, 0, 0, 0.1); ;
-            transform: scale(1.02); /* Slight zoom effect */
-            
-        }
-        
-        
 
-        .social-links a i {
-            font-size: 22px;
-            margin-right: 8px; /* Space between icon and text */
+        .section:hover {
+            background: rgba(0, 0, 0, 0.05);
+            transform: scale(1.02);
+        }
+
+        .section h2.section-title {
+            margin-top: 0;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 8px;
+        }
+
+        .experience-item {
+            margin-bottom: 18px;
+        }
+
+        .experience-item h3 {
+            margin-bottom: 2px;
+        }
+
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 8px 16px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .expertise-grid li::before {
+            content: "✔ ";
+            color: #555;
+            font-size: 13px;
+        }
+
+        .expertise-grid li {
+            font-size: 14px;
+        }
+
+        .project-card {
+            border-left: 4px solid #aaa;
+            padding-left: 14px;
+            margin-bottom: 16px;
+        }
+
+        .project-card h3 {
+            margin: 0 0 4px 0;
+        }
+
+        .project-card p {
+            margin: 0;
+            font-size: 14px;
+            color: #444;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 20px;
+        }
+
+        .skills-grid li {
+            font-size: 14px;
+        }
+
+        .awards-list li {
+            margin-bottom: 6px;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 14px;
+            padding: 10px 24px;
+            background: #333;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .download-btn:hover {
+            background: #000;
+            transform: scale(1.05);
+        }
+
+        /* ── CV / PDF mode overrides ──────────────────────────────── */
+        .pdf-mode {
+            background: #fff !important;
+            padding: 0 !important;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .pdf-mode .header {
+            background: #1a1a2e !important;
+            color: #fff !important;
+            border-radius: 0 !important;
+            padding: 24px 30px !important;
+            margin-bottom: 0 !important;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .pdf-mode .header h1 {
+            font-size: 24px !important;
+            margin: 4px 0 !important;
+            color: #fff !important;
+        }
+
+        .pdf-mode .header p {
+            color: #ccc !important;
+            font-size: 13px !important;
+        }
+
+        .pdf-mode .contact-info {
+            color: #ddd !important;
+            font-size: 12px !important;
+        }
+
+        .pdf-mode .social-links a {
+            color: #aad4f5 !important;
+            font-size: 13px !important;
+        }
+
+        .pdf-mode .profile-image {
+            width: 80px;
+            height: 80px;
+            border-color: #aaa;
+        }
+
+        .pdf-mode .download-btn {
+            display: none !important;
+        }
+
+        .pdf-mode .section {
+            background: #fff !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            padding: 12px 30px !important;
+            margin-bottom: 0 !important;
+            border-bottom: 1px solid #e0e0e0;
+            transform: none !important;
+        }
+
+        .pdf-mode .section:hover {
+            background: #fff !important;
+            transform: none !important;
+        }
+
+        .pdf-mode .section h2.section-title {
+            font-size: 14px !important;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #1a1a2e !important;
+            border-bottom-color: #1a1a2e !important;
+            margin-bottom: 8px !important;
+        }
+
+        .pdf-mode .experience-item {
+            margin-bottom: 10px !important;
+        }
+
+        .pdf-mode .experience-item h3 {
+            font-size: 13px !important;
+            margin-bottom: 1px !important;
+        }
+
+        .pdf-mode .project-card {
+            border-left-color: #1a1a2e;
+            margin-bottom: 8px !important;
+        }
+
+        .pdf-mode .project-card h3 {
+            font-size: 13px !important;
+        }
+
+        .pdf-mode .expertise-grid li,
+        .pdf-mode .skills-grid li,
+        .pdf-mode p,
+        .pdf-mode li {
+            font-size: 12px !important;
+        }
+
+        .pdf-mode .awards-list li {
+            margin-bottom: 3px !important;
         }
     </style>
 </head>
+
 <body>
     <div class="header">
         <img src="yasir jan.jpeg" alt="Yasir Jan" class="profile-image">
-        <h1>Yasir Jan</h1>
-        <p>AI R&D Consultant | Head of AI Department | PhD in Computer Vision</p>
-        
+        <h1>Dr. Yasir Jan</h1>
+        <p>AI &amp; Innovation Strategy Consultant | Artificial Intelligence | Digital Transformation</p>
+        <p style="font-size:14px; margin:4px 0;">Islamabad, Pakistan</p>
+
         <div class="contact-info">
-            📱 +92-333-9487443 | ✉️ yasirjan@gmail.com
+            📱 +92-333-9487443 &nbsp;|&nbsp; ✉️ yasirjan@gmail.com
         </div>
 
-        <div class="social-links">
+        <div class="social-links" style="margin-top:10px;">
             <a href="https://www.linkedin.com/in/yasirjan/" target="_blank">
                 <i class="fab fa-linkedin"></i> LinkedIn
             </a>
             <a href="https://www.github.com/janyasir/" target="_blank">
                 <i class="fab fa-github"></i> GitHub
             </a>
+            <a href="https://orcid.org/0000-0002-9232-1703" target="_blank">
+                <i class="fab fa-orcid"></i> ORCID
+            </a>
         </div>
+        <p style="font-size:13px; margin-top:8px; color:#333;">🌐 Languages: English &nbsp;|&nbsp; Urdu &nbsp;|&nbsp;
+            Pashto</p>
+        <button class="download-btn" id="downloadBtn" onclick="downloadResume()">
+            <i class="fas fa-file-download"></i> Download Resume (PDF)
+        </button>
     </div>
 
+    <script>
+        function downloadResume() {
+            document.body.classList.add('pdf-mode');
+            const opt = {
+                margin: [0, 0, 0, 0],
+                filename: 'Dr_Yasir_Jan_Resume.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true, scrollY: 0 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(document.body).save().then(() => {
+                document.body.classList.remove('pdf-mode');
+            });
+        }
+    </script>
 
 
-
-
-</html>
-
-
+    <!-- Professional Summary -->
     <div class="section">
         <h2 class="section-title">Professional Summary</h2>
-        <p>Experienced AI and Computer Vision specialist with a PhD from Murdoch University. Expert in deep learning, machine learning, and computer vision applications with extensive research and industry experience.</p>
+        <p>Artificial intelligence and digital transformation specialist with over 10 years of combined academic,
+            research, and industry consulting experience. Expertise in developing applied AI solutions, advising on
+            technology adoption, and translating research innovations into deployable systems for organizations.</p>
+        <p>Experienced in machine learning, computer vision, predictive analytics, and intelligent automation, with a
+            strong track record of leading AI development projects across healthcare, manufacturing, and intelligent
+            monitoring systems. Proven ability to guide multidisciplinary teams, deliver technical strategy, and support
+            organizations in building AI capability and innovation capacity.</p>
     </div>
 
+
+    <!-- Core Expertise -->
     <div class="section">
-        <h2 class="section-title">Experience</h2>
-        
-        <div class="experience-item">
-            <h3>AI R&D Consultant - CARE, Islamabad</h3>
-            <p>April 2022 - Present</p>
-            <ul>
-                <li>Data extraction from digital document scans, for visually impaired people</li>
-                <li>Disease detection by applying detection techniques on Medical Urine strips</li>
-            </ul>
-        </div>
-
-        <div class="experience-item">
-            <h3>Head of Department, Sir Syed CASE Institute of Technology, Islamabad, Pakistan</h3>
-            <p>August 2022 - Present</p>
-            <ul>
-                <li>Teching UG/PG courses such as Deep Learning, Computer Vision, Natural Language Processing </li>
-				<li>Managing Undergraduate and Postgraduate Projects</li>
-                <li>Curriculum based decision making</li>
-            </ul>
-        </div>
-        
-        <div class="experience-item">
-            <h3>R&D Computer Vision Engineer - GenVis, Perth, Australia</h3>
-            <p>June 2020 - Feb 2022</p>
-            <ul>
-                <li>People and car tracking systems</li>
-                <li>Detecting cars/people, their attributes and tracking them throughout video</li>
-            </ul>
-        </div>
-        
-        
-                <div class="experience-item">
-            <h3>R&D Computer Vision Engineer - ScanTek, Perth, Australia</h3>
-            <p>Nov 2019 - May 2020</p>
-            <ul>
-                <li>AI based ID card Reader</li>
-            </ul>
-        </div>
-        
+        <h2 class="section-title">Core Expertise</h2>
+        <ul class="expertise-grid">
+            <li>AI Strategy Development</li>
+            <li>Digital Transformation Advisory</li>
+            <li>Innovation Program Development</li>
+            <li>Machine Learning &amp; Deep Learning</li>
+            <li>Computer Vision Systems</li>
+            <li>Predictive Analytics &amp; Optimization</li>
+            <li>Generative AI Concepts</li>
+            <li>Data Analytics &amp; AI Readiness Assessment</li>
+            <li>AI Governance &amp; Responsible AI</li>
+            <li>Technology Architecture &amp; Solution Design</li>
+            <li>Executive Training &amp; Technical Workshops</li>
+            <li>Stakeholder Engagement &amp; Technical Leadership</li>
+        </ul>
     </div>
 
+
+    <!-- Experience -->
+    <div class="section">
+        <h2 class="section-title">Professional Experience</h2>
+
+        <div class="experience-item">
+            <h3>Senior AI R&amp;D Consultant – <a href="https://carepvtltd.com" target="_blank">CARE Pvt Ltd</a>,
+                Islamabad</h3>
+            <p><em>April 2022 – Present</em></p>
+            <p>Lead the development and deployment of applied artificial intelligence solutions for enterprise and
+                industrial applications.</p>
+            <ul>
+                <li>Designed AI-based document intelligence systems using OCR and deep learning</li>
+                <li>Developed computer vision solutions for intelligent video analytics including vehicle detection and
+                    monitoring systems</li>
+                <li>Led development of AI-driven medical diagnostic tools from biochemical test strips</li>
+                <li>Built optimization systems using genetic algorithms for manufacturing scheduling</li>
+                <li>Supervised multidisciplinary AI development teams and coordinated client engagement activities</li>
+            </ul>
+        </div>
+
+        <div class="experience-item">
+            <h3>Assistant Professor &amp; Head – AI Department, <a href="https://case.edu.pk" target="_blank">Sir Syed
+                    CASE Institute of Technology</a>, Islamabad</h3>
+            <p><em>April 2022 – Present</em></p>
+            <ul>
+                <li>Lead the development of the Artificial Intelligence academic program</li>
+                <li>Teach UG/PG courses: Deep Learning, Computer Vision, Natural Language Processing</li>
+                <li>Coordinate research initiatives in computer vision and applied machine learning</li>
+                <li>Supervise undergraduate and postgraduate research projects in AI and data science</li>
+                <li>Support curriculum design aligned with emerging technology trends</li>
+            </ul>
+        </div>
+
+        <div class="experience-item">
+            <h3>Computer Vision Engineer – <a href="https://genvis.co" target="_blank">GenVis</a>, Perth, Australia</h3>
+            <p><em>June 2020 – February 2022</em></p>
+            <p>Developed deep learning-based computer vision systems for multi-object tracking and video analytics.</p>
+            <ul>
+                <li>Built multi-object detection and tracking pipelines for surveillance video systems</li>
+                <li>Implemented deep learning architectures for real-time video analysis</li>
+                <li>Optimized detection models for improved accuracy in crowded environments</li>
+            </ul>
+        </div>
+
+        <div class="experience-item">
+            <h3>Software Engineering Intern (OCR/AI) – <a href="https://scantek.com" target="_blank">ScanTek</a>, Perth,
+                Australia</h3>
+            <p><em>November 2019 – April 2020</em></p>
+            <ul>
+                <li>Worked on AI-based optical character recognition solutions for extracting text from complex visual
+                    backgrounds (AI-based ID card reader)</li>
+            </ul>
+        </div>
+
+        <div class="experience-item">
+            <h3>University Tutor (Graduate Teaching Instructor) – <a href="https://murdoch.edu.au"
+                    target="_blank">Murdoch University</a></h3>
+            <p><em>2016 – 2019</em></p>
+        </div>
+
+        <div class="experience-item">
+            <h3>Assistant Professor / Lecturer – <a href="https://nust.edu.pk" target="_blank">National University of
+                    Sciences and Technology (NUST)</a></h3>
+            <p><em>2009 – 2012</em></p>
+        </div>
+
+        <div class="experience-item">
+            <h3>Visiting Lecturer – Bahria University</h3>
+            <p><em>2015 – 2016</em></p>
+        </div>
+
+        <div class="experience-item">
+            <h3>Teaching Assistant – National University of Sciences and Technology (NUST)</h3>
+            <p><em>2004 – 2006</em></p>
+        </div>
+    </div>
+
+
+    <!-- Education -->
     <div class="section">
         <h2 class="section-title">Education</h2>
+
         <div class="experience-item">
-            <h3>PhD in Computer Vision</h3>
-            <p>Murdoch University, Perth, Australia (2016-2021)</p>
+            <h3>PhD – Information Technology (Computer Vision)</h3>
+            <p><a href="https://www.murdoch.edu.au" target="_blank">Murdoch University</a>, Perth, Australia (2016 –
+                2021)</p>
             <p>Research: Machine Learning for Crowd Image Analysis</p>
         </div>
 
         <div class="experience-item">
-            <h3>Masters in Electrical & Electronic Engineering</h3>
-            <p>Pohang University of Science and Technology, South Korea (2007-2009)</p>
+            <h3>MS – Electrical &amp; Electronic Engineering</h3>
+            <p><a href="https://www.postech.ac.kr" target="_blank">Pohang University of Science and Technology
+                    (POSTECH)</a>, South Korea (2007 – 2009)</p>
         </div>
-        
-               <div class="experience-item">
-            <h3>Bachelors in Computer Engineering</h3>
-            <p>National University of Science and Technology, EME College, Pakistan (2001-2004)</p>
+
+        <div class="experience-item">
+            <h3>BS – Computer Engineering</h3>
+            <p><a href="https://www.nust.edu.pk" target="_blank">National University of Sciences and Technology</a>, EME
+                College, Pakistan (2001 – 2004)</p>
         </div>
     </div>
 
-<div class="section">
-    <h2 class="section-title">Supervised Students</h2>
 
-    <div class="experience-item">
-        <h3>Undergraduate Students (2024)</h3>
-        <ul>
-            <li>Student Name 4 - Project Title</li>
-            <li>Student Name 5 - Project Title</li>
-        </ul>
-    </div>
-
-    <div class="experience-item">
-        <h3>Undergraduate Students (2023)</h3>
-        <ul>
-            <li>Student Name 1 - Project Title</li>
-            <li>Student Name 2 - Project Title</li>
-            <li>Student Name 3 - Project Title</li>
-        </ul>
-    </div>
-
-    <div class="experience-item">
-        <h3>Postgraduate Students (2024)</h3>
-        <ul>
-            <li>Student Name 8 - Thesis Title</li>
-            <li>Student Name 9 - Thesis Title</li>
-        </ul>
-    </div>
-
-    <div class="experience-item">
-        <h3>Postgraduate Students (2023)</h3>
-        <ul>
-            <li>Student Name 6 - Thesis Title</li>
-            <li>Student Name 7 - Thesis Title</li>
-        </ul>
-    </div>
-
-<div class="experience-item">
-    <h3>Internships (2024)</h3>
-    <ul>
-        <li><a href="#">Abdullah Umer Ali</a></li>
-        <li><a href="#">Abdul Moiz</a></li>
-        <li><a href="#">Aayan Ejaz</a></li>
-        <li><a href="#">Ali Dayan</a></li>
-        <li><a href="#">Asma Abid</a></li>
-        <li><a href="#">Farhan Afsar</a></li>
-        <li><a href="#">Fasih ur Rehman</a></li>
-        <li><a href="#">Hasnain Irshad</a></li>
-        <li><a href="#">Moazzam Haider</a></li>
-        <li><a href="#">Muhammad Talha</a></li>
-        <li><a href="#">Muhammad Talal Kayani</a></li>
-        <li><a href="#">Muhammad Zakriya</a></li>
-        <li><a href="#">Summaira Muzaffar</a></li>
-    </ul>
-</div>
-
-<div class="experience-item">
-    <h3>Internships (2023)</h3>
-    <ul>
-        <li><a href="#">Ali Dayan Pervez</a></li>
-        <li><a href="#">Fasih Ahmed</a></li>
-        <li><a href="#">Hafiz Hammad Satti</a></li>
-        <li><a href="#">Hamza Iftikhar</a></li>
-        <li><a href="#">Mohammad Zain Zia</a></li>
-        <li><a href="#">Muhammad Areeb Khan</a></li>
-        <li><a href="#">Muhammad Luqman</a></li>
-        <li><a href="#">Obaid Sajjad</a></li>
-        <li><a href="#">Raja Abdul Basit</a></li>
-        <li><a href="#">Shaheer Zafar</a></li>
-        <li><a href="#">Umama Aijaz</a></li>
-    </ul>
-</div>
-
-<div class="experience-item">
-    <h3>Internships (2022)</h3>
-    <ul>
-        <li><a href="#">Abdul Hanan</a></li>
-        <li><a href="#">Arsalan Amin</a></li>
-        <li><a href="#">Hafiz Hammad Sharafat Satti</a></li>
-        <li><a href="#">Ismail Effandi</a></li>
-        <li><a href="#">Lehrasib Ali</a></li>
-        <li><a href="#">Muhammad Abuzar</a></li>
-        <li><a href="#">Muhammad Ahsanullah Mangat</a></li>
-        <li><a href="#">Muhammad Luqman</a></li>
-        <li><a href="#">Muhammad Ramzan</a></li>
-        <li><a href="#">Mubashir Nasir</a></li>
-        <li><a href="#">Raja Musshaf Ali Umar</a></li>
-    </ul>
-</div>
-<div class="experience-item">
-    <h3>Internships (2025)</h3>
-    <ul>
-   <li><a href="https://www.linkedin.com/in/jahan-alam-040472280" target="_blank">Jahan Alam</a></li>
-
-       
-       
-    </ul>
-</div>
-
-</div>
-
+    <!-- Selected AI Projects -->
     <div class="section">
-        <h2 class="section-title">Key Projects</h2>
-        <ul>
-            <li>Object/People tracking for video surveillance</li>
-            <li>OCR for dark text on dark background</li>
-            <li>Neuron Architecture</li>
-            <li>Crowd Image Analysis</li>
-            <li>Assistive haptic-based rehabilitation robot</li>
+        <h2 class="section-title">Selected AI &amp; Innovation Projects</h2>
+
+        <div class="project-card">
+            <h3>AI-based Document Intelligence Platform</h3>
+            <p>Automated document layout analysis system combining OCR, classification models, and deep learning
+                techniques for enterprise document processing.</p>
+        </div>
+
+        <div class="project-card">
+            <h3>Medical Diagnostic AI System</h3>
+            <p>Computer vision solution for automated disease detection from urine strip images using machine learning
+                classification models.</p>
+        </div>
+
+        <div class="project-card">
+            <h3>Intelligent Traffic Monitoring System</h3>
+            <p>Deep learning-based system for detecting and monitoring trucks and vehicles from highway video streams.
+            </p>
+        </div>
+
+        <div class="project-card">
+            <h3>Manufacturing Optimization Platform</h3>
+            <p>Genetic algorithm-based scheduling optimization system for textile manufacturing operations.</p>
+        </div>
+
+        <div class="project-card">
+            <h3>Multi-Camera People &amp; Vehicle Tracking</h3>
+            <p>Object / people tracking system for video surveillance across multiple camera feeds, detecting attributes
+                and tracking throughout video.</p>
+        </div>
+
+        <div class="project-card">
+            <h3>Crowd Image Analysis</h3>
+            <p>PhD research applying machine learning techniques for crowd density estimation and behavior analysis.</p>
+        </div>
+
+        <div class="project-card">
+            <h3>Assistive Haptic-based Rehabilitation Robot</h3>
+            <p>Haptic feedback system designed to assist in physical rehabilitation exercises.</p>
+        </div>
+    </div>
+
+
+    <!-- Skills -->
+    <div class="section">
+        <h2 class="section-title">Skills &amp; Technologies</h2>
+        <h4 style="margin-bottom:6px;">AI &amp; Data Technologies</h4>
+        <ul class="skills-grid">
+            <li>Machine Learning &amp; Deep Learning</li>
+            <li>Computer Vision</li>
+            <li>Natural Language Processing</li>
+            <li>Predictive Analytics</li>
+            <li>AI Model Optimization</li>
+            <li>Generative AI</li>
+        </ul>
+        <h4 style="margin:14px 0 6px 0;">Tools &amp; Frameworks</h4>
+        <ul class="skills-grid">
+            <li>Python</li>
+            <li>TensorFlow &amp; PyTorch</li>
+            <li>Scikit-learn</li>
+            <li>OpenCV &amp; YOLO</li>
+            <li>NumPy / Pandas</li>
+            <li>MATLAB</li>
+            <li>Jupyter Notebook</li>
+            <li>GitHub</li>
+            <li>Docker / AWS</li>
         </ul>
     </div>
 
+
+    <!-- Awards & Scholarships -->
     <div class="section">
-        <h2 class="section-title">Skills</h2>
-        <ul>
-            <li>Deep Learning, Machine Learning, Computer Vision</li>
-            <li>Python, TensorFlow, PyTorch, OpenCV</li>
-            <li>Docker, AWS</li>
-            <li>Research & Development</li>
+        <h2 class="section-title">Awards &amp; Scholarships</h2>
+        <ul class="awards-list">
+            <li>🏆 Murdoch International Postgraduate Scholarship – Australia</li>
+            <li>🏆 Korean Government Scholarship – South Korea</li>
+            <li>🏆 LG Research Scholarship – POSTECH</li>
+            <li>🏆 Ministry of Science &amp; Technology Scholarship – Pakistan</li>
+            <li>🏆 NUST Merit Scholarship – Pakistan</li>
         </ul>
     </div>
 
-    <div class="section">
-        <h2 class="section-title">Languages</h2>
-        <p>Pushto, Urdu, English</p>
-    </div>
 
+    <!-- Publications -->
     <div class="section">
         <h2 class="section-title">Publications</h2>
-        <p>View my complete publication list on my <a href="https://scholar.google.com/citations?user=LNXFGKcAAAAJ&hl=en">Google Scholar Profile</a></p>
+        <p>Author of multiple peer-reviewed publications in artificial intelligence, computer vision, and deep learning.
+        </p>
+        <p>View my complete publication list on my <a
+                href="https://scholar.google.com/citations?user=LNXFGKcAAAAJ&hl=en" target="_blank">Google Scholar
+                Profile</a>.</p>
     </div>
+
+
+    <!-- Supervised Students -->
+    <div class="section">
+        <h2 class="section-title">Supervised Students</h2>
+
+        <div class="experience-item">
+            <h3>Undergraduate Students</h3>
+            <ul>
+                <li>Student Name 1 - Project Title</li>
+                <li>Student Name 2 - Project Title</li>
+                <li>Student Name 3 - Project Title</li>
+                <li>Student Name 4 - Project Title</li>
+                <li>Student Name 5 - Project Title</li>
+            </ul>
+        </div>
+
+        <div class="experience-item">
+            <h3>Postgraduate Students</h3>
+            <ul>
+                <li>Student Name 6 - Thesis Title</li>
+                <li>Student Name 7 - Thesis Title</li>
+                <li>Student Name 8 - Thesis Title</li>
+                <li>Student Name 9 - Thesis Title</li>
+            </ul>
+        </div>
+
+        <div class="experience-item">
+            <h3>Internships (2025)</h3>
+            <ul>
+                <li><a href="https://www.linkedin.com/in/jahan-alam-040472280" target="_blank">Jahan Alam</a></li>
+            </ul>
+        </div>
+
+        <div class="experience-item">
+            <h3>Internships (2024)</h3>
+            <ul>
+                <li><a href="#">Abdullah Umer Ali</a></li>
+                <li><a href="#">Abdul Moiz</a></li>
+                <li><a href="#">Aayan Ejaz</a></li>
+                <li><a href="#">Ali Dayan</a></li>
+                <li><a href="#">Asma Abid</a></li>
+                <li><a href="#">Farhan Afsar</a></li>
+                <li><a href="#">Fasih ur Rehman</a></li>
+                <li><a href="#">Hasnain Irshad</a></li>
+                <li><a href="#">Moazzam Haider</a></li>
+                <li><a href="#">Muhammad Talha</a></li>
+                <li><a href="#">Muhammad Talal Kayani</a></li>
+                <li><a href="#">Muhammad Zakriya</a></li>
+                <li><a href="#">Summaira Muzaffar</a></li>
+            </ul>
+        </div>
+
+        <div class="experience-item">
+            <h3>Internships (2023)</h3>
+            <ul>
+                <li><a href="#">Ali Dayan Pervez</a></li>
+                <li><a href="#">Fasih Ahmed</a></li>
+                <li><a href="#">Hafiz Hammad Satti</a></li>
+                <li><a href="#">Hamza Iftikhar</a></li>
+                <li><a href="#">Mohammad Zain Zia</a></li>
+                <li><a href="#">Muhammad Areeb Khan</a></li>
+                <li><a href="#">Muhammad Luqman</a></li>
+                <li><a href="#">Obaid Sajjad</a></li>
+                <li><a href="#">Raja Abdul Basit</a></li>
+                <li><a href="#">Shaheer Zafar</a></li>
+                <li><a href="#">Umama Aijaz</a></li>
+            </ul>
+        </div>
+
+        <div class="experience-item">
+            <h3>Internships (2022)</h3>
+            <ul>
+                <li><a href="#">Abdul Hanan</a></li>
+                <li><a href="#">Arsalan Amin</a></li>
+                <li><a href="#">Hafiz Hammad Sharafat Satti</a></li>
+                <li><a href="#">Ismail Effandi</a></li>
+                <li><a href="#">Lehrasib Ali</a></li>
+                <li><a href="#">Muhammad Abuzar</a></li>
+                <li><a href="#">Muhammad Ahsanullah Mangat</a></li>
+                <li><a href="#">Muhammad Luqman</a></li>
+                <li><a href="#">Muhammad Ramzan</a></li>
+                <li><a href="#">Mubashir Nasir</a></li>
+                <li><a href="#">Raja Musshaf Ali Umar</a></li>
+            </ul>
+        </div>
+    </div>
+
+
     <div class="section" style="text-align: center; font-size: 14px;">
-        <p>&copy; 2025 Yasir Jan. All rights reserved.</p>
+        <p>&copy; 2025 Dr. Yasir Jan. All rights reserved.</p>
     </div>
-    
 
 </body>
+
 </html>
