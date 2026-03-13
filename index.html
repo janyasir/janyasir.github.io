@@ -98,7 +98,14 @@
             margin-bottom: 18px;
         }
 
-        .experience-item h3 {
+        details.experience-item summary {
+            cursor: pointer;
+            outline: none;
+            display: list-item;
+        }
+
+        details.experience-item summary h3 {
+            display: inline-block;
             margin-bottom: 2px;
         }
 
@@ -564,8 +571,10 @@
     <div class="section">
         <h2 class="section-title">Supervised Students</h2>
 
-        <div class="experience-item">
-            <h3>Undergraduate Students</h3>
+        <details class="experience-item" open>
+            <summary>
+                <h3>Undergraduate Students</h3>
+            </summary>
             <ul>
                 <li>Student Name 1 - Project Title</li>
                 <li>Student Name 2 - Project Title</li>
@@ -573,27 +582,33 @@
                 <li>Student Name 4 - Project Title</li>
                 <li>Student Name 5 - Project Title</li>
             </ul>
-        </div>
+        </details>
 
-        <div class="experience-item">
-            <h3>Postgraduate Students</h3>
+        <details class="experience-item" open>
+            <summary>
+                <h3>Postgraduate Students</h3>
+            </summary>
             <ul>
                 <li>Student Name 6 - Thesis Title</li>
                 <li>Student Name 7 - Thesis Title</li>
                 <li>Student Name 8 - Thesis Title</li>
                 <li>Student Name 9 - Thesis Title</li>
             </ul>
-        </div>
+        </details>
 
-        <div class="experience-item">
-            <h3>Internships (2025)</h3>
+        <details class="experience-item" open>
+            <summary>
+                <h3>Internships (2025)</h3>
+            </summary>
             <ul>
                 <li><a href="https://www.linkedin.com/in/jahan-alam-040472280" target="_blank">Jahan Alam</a></li>
             </ul>
-        </div>
+        </details>
 
-        <div class="experience-item">
-            <h3>Internships (2024)</h3>
+        <details class="experience-item" open>
+            <summary>
+                <h3>Internships (2024)</h3>
+            </summary>
             <ul>
                 <li><a href="#">Abdullah Umer Ali</a></li>
                 <li><a href="#">Abdul Moiz</a></li>
@@ -609,10 +624,12 @@
                 <li><a href="#">Muhammad Zakriya</a></li>
                 <li><a href="#">Summaira Muzaffar</a></li>
             </ul>
-        </div>
+        </details>
 
-        <div class="experience-item">
-            <h3>Internships (2023)</h3>
+        <details class="experience-item" open>
+            <summary>
+                <h3>Internships (2023)</h3>
+            </summary>
             <ul>
                 <li><a href="#">Ali Dayan Pervez</a></li>
                 <li><a href="#">Fasih Ahmed</a></li>
@@ -626,10 +643,12 @@
                 <li><a href="#">Shaheer Zafar</a></li>
                 <li><a href="#">Umama Aijaz</a></li>
             </ul>
-        </div>
+        </details>
 
-        <div class="experience-item">
-            <h3>Internships (2022)</h3>
+        <details class="experience-item" open>
+            <summary>
+                <h3>Internships (2022)</h3>
+            </summary>
             <ul>
                 <li><a href="#">Abdul Hanan</a></li>
                 <li><a href="#">Arsalan Amin</a></li>
@@ -643,7 +662,7 @@
                 <li><a href="#">Mubashir Nasir</a></li>
                 <li><a href="#">Raja Musshaf Ali Umar</a></li>
             </ul>
-        </div>
+        </details>
     </div>
 
 
